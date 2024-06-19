@@ -140,8 +140,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
               ],
             ),
           ),
-          // Add more UI elements here (e.g., search button)
-
+    TextButton(onPressed: (){}, child: Text('Confirm', style: TextStyle(fontSize: 15,color: Colors.green),))
           // Add more UI elements here (e.g., search button, results)
         ],
       ),
