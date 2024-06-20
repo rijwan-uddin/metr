@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'station_fare.dart'; // Import the StationFareDatabase class
 
 class TrainTicketSearch extends StatefulWidget {
   const TrainTicketSearch({super.key});
@@ -9,141 +12,291 @@ class TrainTicketSearch extends StatefulWidget {
 
 class _TrainTicketSearchState extends State<TrainTicketSearch> {
   List<String> _stations = [
-    'Uttara North',
-    'Uttara Center',
     'Uttara South',
     'Pallabi',
-    'Mirpur11',
-    'Mirpur10',
+    'Mirpur 11',
+    'Mirpur 10',
     'Kazipara',
     'Shewrapara',
     'Agargaon',
-    'Bijoysaraoni',
+    'Bijoy Sarani',
     'Farmgate',
-    'Kawranbazar',
-    'Shahbagh',
+    'Karwan Bazar',
+    'Shahbag',
     'Dhaka University',
-    'Sochibaloy',
-    'Motijhil',
-    'Komlapur',
+    'Bangladesh Secretariat',
+    'Motijheel',
+    'Kamalapur',
   ];
 
   String? _selectedFromStation;
   String? _selectedToStation;
+  DateTime? _selectedDate;
+  bool _showTickets = false; // Flag to control display of tickets
+  List<Ticket> _tickets = []; // List to hold generated tickets
+
   final outlineInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(5.0), // Adjust border radius as needed
+    borderRadius: BorderRadius.circular(5.0),
     borderSide: BorderSide(color: Colors.grey, width: 1.0),
   );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
-      body: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Container(
-            height: 200.0, // Adjust height as needed
-            width: double.infinity, // Allow container to expand horizontally
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  // Adjust shadow color as needed
-                  spreadRadius: 5,
-                  // Adjust shadow spread radius as needed
-                  blurRadius: 7,
-                  // Adjust shadow blur radius as needed
-                  offset: Offset(0, 3), // Adjust shadow offset as needed
-                )
-              ],
-            ),
-            child: Column(
-              // Use Column for vertical layout
-              children: [
-                // Search result area (initially empty, replace with your logic)
-                const Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    'Search Results', // Replace with actual search results
+      backgroundColor: Colors.green[50],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 30),
+            Container(
+              padding: EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  )
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Train Ticket',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  // Use Expanded for flexible space between elements
-                  child: Column(
-                    // Use Row for horizontal layout of dropdowns
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          value: _selectedFromStation,
-                          hint: Text('From Station'),
-                          icon: Icon(Icons.keyboard_arrow_down),
-                          items: _stations
-                              .map((station) => DropdownMenuItem(
-                                    value: station,
-                                    child: Text(station),
-                                  ))
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _selectedFromStation = value!),
-                          decoration: InputDecoration(
-                            contentPadding:
-                                EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
-                            fillColor: Colors.blueGrey,
-                            // Add fillColor to set background color
-                            filled: true,
-                            border: outlineInputBorder,
-                            enabledBorder: outlineInputBorder,
-                            focusedBorder: outlineInputBorder,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                          value: _selectedToStation,
-                          hint: Text('To Station'),
-                          icon: Icon(Icons.keyboard_arrow_down),
-                          items: _stations
-                              .map((station) => DropdownMenuItem(
-                                    value: station,
-                                    child: Text(station),
-                                  ))
-                              .toList(),
-                          onChanged: (value) =>
-                              setState(() => _selectedToStation = value!),
-                          decoration: InputDecoration(
-                            contentPadding:
-                                EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
-                            border: outlineInputBorder,
-                            fillColor: Colors.blueGrey,
-                            // Add fillColor to set background color
-                            filled:
-                                true, // Set filled to true to apply fillColor
-                          ),
-                        ),
-                      ),
-                    ],
+                  SizedBox(height: 20),
+                  _buildDropdown('From Station', _selectedFromStation, (value) {
+                    setState(() {
+                      _selectedFromStation = value;
+                    });
+                  }), SizedBox(height: 10),
+                  _buildDropdown('To Station', _selectedToStation, (value) {
+                    setState(() {
+                      _selectedToStation = value;
+                    });
+                  }), SizedBox(height: 10),
+                  _buildDateField(),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      _calculateFareAndGenerateTickets();
+                    },
+                    child: Text('Confirm'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+
+                      textStyle: TextStyle(fontSize: 16.0),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            if (_showTickets) ..._buildTicketsUI(), // Show tickets UI conditionally
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDropdown(String label, String? value, ValueChanged<String?> onChanged) {
+    return DropdownButtonFormField<String>(
+      value: value,
+      hint: Text(label),
+      icon: Icon(Icons.keyboard_arrow_down),
+      items: _stations
+          .map((station) => DropdownMenuItem(
+        value: station,
+        child: Text(station),
+      ))
+          .toList(),
+      onChanged: onChanged,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
+        fillColor: Colors.green[50],
+        filled: true,
+        border: outlineInputBorder,
+        enabledBorder: outlineInputBorder,
+        focusedBorder: outlineInputBorder,
+      ),
+    );
+  }
+
+  Widget _buildDateField() {
+    return Container(
+      child: TextFormField(
+        readOnly: true,
+        decoration: InputDecoration(
+          labelText: 'Journey Date',
+          hintText: _selectedDate != null
+              ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+              : 'Select a date',
+          suffixIcon: Icon(Icons.calendar_today),
+          contentPadding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
+          fillColor: Colors.green[50],
+          filled: true,
+          border: outlineInputBorder,
+          enabledBorder: outlineInputBorder,
+          focusedBorder: outlineInputBorder,
+        ),
+        onTap: () {
+          _selectDate(context);
+        },
+      ),
+    );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
+  void _calculateFareAndGenerateTickets() {
+    if (_selectedFromStation != null && _selectedToStation != null && _selectedDate != null) {
+      // Calculate fare using StationFareDatabase
+      int fare = StationFareDatabase().getFare(_selectedFromStation!, _selectedToStation!);
+
+      // Generate sample tickets (for demonstration purposes)
+      _tickets = _generateSampleTickets(fare);
+
+      setState(() {
+        _showTickets = true; // Show ticket UI
+      });
+    } else {
+      // Handle if any field is not selected
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please select From Station, To Station, and Date.'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  List<Ticket> _generateSampleTickets(int fare) {
+    // Generate 8-10 sample tickets with random train numbers and timings
+    Random random = Random();
+    List<Ticket> tickets = [];
+    for (int i = 1; i <= random.nextInt(3) + 8; i++) {
+      tickets.add(Ticket(
+        trainNumber: 'ABCD${random.nextInt(10000)}',
+        timing: '${random.nextInt(24).toString().padLeft(2, '0')}:${random.nextInt(60).toString().padLeft(2, '0')}',
+        fare: fare,
+        fromStation: _selectedFromStation!,
+        toStation: _selectedToStation!,
+      ));
+    }
+    return tickets;
+  }
+
+  List<Widget> _buildTicketsUI() {
+    return _tickets.map((ticket) => _buildTicketCard(ticket)).toList();
+  }
+
+  Widget _buildTicketCard(Ticket ticket) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10.0),
+      padding: EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 2),
+          )
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Train Ticket',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
           ),
-    TextButton(onPressed: (){}, child: Text('Confirm', style: TextStyle(fontSize: 15,color: Colors.green),))
-          // Add more UI elements here (e.g., search button, results)
+          SizedBox(height: 10),
+          _buildTicketDetail('Train Number', ticket.trainNumber),
+          _buildTicketDetail('From Station', ticket.fromStation),
+          _buildTicketDetail('To Station', ticket.toStation),
+          _buildTicketDetail('Timing', ticket.timing),
+          _buildTicketDetail('Fare', '${ticket.fare} TK'),
+          SizedBox(height: 10),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                // Implement your booking logic here
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Booking feature will be implemented soon!'),
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              },
+              child: Text('Book Now'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                padding: EdgeInsets.symmetric(vertical: 10.0),
+                textStyle: TextStyle(fontSize: 14.0),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
+
+  Widget _buildTicketDetail(String label, String value) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(value),
+        ],
+      ),
+    );
+  }
+}
+
+class Ticket {
+  final String trainNumber;
+  final String timing;
+  final int fare;
+  final String fromStation;
+  final String toStation;
+
+  Ticket({
+    required this.trainNumber,
+    required this.timing,
+    required this.fare,
+    required this.fromStation,
+    required this.toStation,
+  });
 }
