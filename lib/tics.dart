@@ -1,3 +1,4 @@
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'station_fare.dart'; // Import the StationFareDatabase class
@@ -38,6 +39,9 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
     borderRadius: BorderRadius.circular(5.0),
     borderSide: BorderSide(color: Colors.grey, width: 1.0),
   );
+
+  bool _isOneWay = true; // Flag to track if one way or two way is selected
+  String? _selectedFilter; // Selected filter type
 
   @override
   Widget build(BuildContext context) {
@@ -106,17 +110,67 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                 ],
               ),
             ),
+            SizedBox(height: 10,),
             LayoutBuilder(
               builder: (context, constraints) {
                 return Container(
-                  width: constraints.maxWidth * 0.8,
+                  width: constraints.maxWidth * 0.9,
                   child: Divider(
-                    color: Colors.green,
+                    color: Colors.green[200],
                     thickness: 2.0,
                   ),
                 );
               },
             ),
+
+            // New Row with additional features
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _isOneWay = true;
+                          });
+                        },
+                        child: Text('One Way', style: TextStyle(fontSize: 12.0)),
+                        style: ElevatedButton.styleFrom(
+                          primary: _isOneWay ? Colors.green : Colors.grey,
+                          onPrimary: Colors.white,
+                          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                        ),
+                      ),
+
+                      ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _isOneWay = false;
+                          });
+                        },
+                        child: Text('Two Way', style: TextStyle(fontSize: 12.0)),
+                        style: ElevatedButton.styleFrom(
+                          primary: !_isOneWay ? Colors.green : Colors.grey,
+                          onPrimary: Colors.white,
+                          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                        ),
+                      ),
+                    ],
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.filter_alt, color: Colors.green,),
+                    onPressed: () {
+                      // Implement filter logic here
+                      showTimeFilterDialog();
+                    },
+                  ),
+                ],
+              ),
+            ),
+
             if (_showTickets) ..._buildTicketsUI(),
             // Show tickets UI conditionally
           ],
@@ -158,7 +212,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
           hintText: _selectedDate != null
               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
               : 'Select a date',
-          suffixIcon: Icon(Icons.calendar_today),
+          suffixIcon: Icon(Icons.calendar_today, color: Colors.green),
           contentPadding: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
           fillColor: Colors.green[50],
           filled: true,
@@ -224,8 +278,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
           fare: fare,
           fromStation: _selectedFromStation!,
           toStation: _selectedToStation!,
-          duration: '${random.nextInt(2)}h ${random.nextInt(60)}m'
-      ));
+          duration: '${random.nextInt(2)}h ${random.nextInt(60)}m'));
     }
     return tickets;
   }
@@ -240,7 +293,8 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.green, width: 2),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.3),
@@ -271,6 +325,10 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
               ),
             ],
           ),
+          Divider(
+            color: Colors.green[100],
+            thickness: 0.8,
+          ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -278,11 +336,23 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
               _buildStationInfo(ticket.fromStation),
               Icon(Icons.arrow_forward),
               _buildStationInfo(ticket.toStation),
-              Text(
-                'Train No\n${ticket.trainNumber}',
+              RichText(
                 textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                text: TextSpan(
+                  text: 'Train No\n',
+                  style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: ticket.trainNumber,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -291,7 +361,8 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildIconText(Icons.calendar_today, '${_selectedDate!.day} ${_selectedDate!.month}, ${_selectedDate!.year}'),
+              _buildIconText(Icons.calendar_today,
+                  '${_selectedDate!.day} ${_selectedDate!.month}, ${_selectedDate!.year}'),
               _buildIconText(Icons.access_time, ticket.duration),
               SizedBox(
                 width: 100,
@@ -300,7 +371,8 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                     // Implement your booking logic here
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Booking feature will be implemented soon!'),
+                        content:
+                        Text('Booking feature will be implemented soon!'),
                         duration: Duration(seconds: 3),
                       ),
                     );
@@ -340,6 +412,50 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
         SizedBox(width: 5),
         Text(text),
       ],
+    );
+  }
+
+  void showTimeFilterDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Filter Results'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: Text('Time'),
+                onTap: () {
+                  setState(() {
+                    _selectedFilter = 'Time';
+                    _tickets.sort((a, b) => a.timing.compareTo(b.timing));
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
+              ListTile(
+                title: Text('Train Number'),
+                onTap: () {
+                  setState(() {
+                    _selectedFilter = 'Train Number';
+                    _tickets.sort((a, b) => a.trainNumber.compareTo(b.trainNumber));
+                    Navigator.of(context).pop();
+                  });
+                },
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
