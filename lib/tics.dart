@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'station_fare.dart'; // Import the StationFareDatabase class
 
@@ -47,8 +46,12 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            SizedBox(
+              height: 30,
+            ),
             Container(
+              width: double.infinity,
+              height: 300,
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -66,7 +69,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    'Train Ticket',
+                    'Search Result',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20,
@@ -78,12 +81,14 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                     setState(() {
                       _selectedFromStation = value;
                     });
-                  }), SizedBox(height: 10),
+                  }),
+                  SizedBox(height: 10),
                   _buildDropdown('To Station', _selectedToStation, (value) {
                     setState(() {
                       _selectedToStation = value;
                     });
-                  }), SizedBox(height: 10),
+                  }),
+                  SizedBox(height: 10),
                   _buildDateField(),
                   SizedBox(height: 20),
                   ElevatedButton(
@@ -93,21 +98,35 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                     child: Text('Confirm'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
-
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 30.0, vertical: 15.0),
                       textStyle: TextStyle(fontSize: 16.0),
                     ),
                   ),
                 ],
               ),
             ),
-            if (_showTickets) ..._buildTicketsUI(), // Show tickets UI conditionally
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Container(
+                  width: constraints.maxWidth * 0.8,
+                  child: Divider(
+                    color: Colors.green,
+                    thickness: 2.0,
+                  ),
+                );
+              },
+            ),
+            if (_showTickets) ..._buildTicketsUI(),
+            // Show tickets UI conditionally
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDropdown(String label, String? value, ValueChanged<String?> onChanged) {
+  Widget _buildDropdown(
+      String label, String? value, ValueChanged<String?> onChanged) {
     return DropdownButtonFormField<String>(
       value: value,
       hint: Text(label),
@@ -169,9 +188,12 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
   }
 
   void _calculateFareAndGenerateTickets() {
-    if (_selectedFromStation != null && _selectedToStation != null && _selectedDate != null) {
+    if (_selectedFromStation != null &&
+        _selectedToStation != null &&
+        _selectedDate != null) {
       // Calculate fare using StationFareDatabase
-      int fare = StationFareDatabase().getFare(_selectedFromStation!, _selectedToStation!);
+      int fare = StationFareDatabase()
+          .getFare(_selectedFromStation!, _selectedToStation!);
 
       // Generate sample tickets (for demonstration purposes)
       _tickets = _generateSampleTickets(fare);
@@ -196,11 +218,13 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
     List<Ticket> tickets = [];
     for (int i = 1; i <= random.nextInt(3) + 8; i++) {
       tickets.add(Ticket(
-        trainNumber: 'ABCD${random.nextInt(10000)}',
-        timing: '${random.nextInt(24).toString().padLeft(2, '0')}:${random.nextInt(60).toString().padLeft(2, '0')}',
-        fare: fare,
-        fromStation: _selectedFromStation!,
-        toStation: _selectedToStation!,
+          trainNumber: 'DMR-${random.nextInt(100)}',
+          timing:
+          '${random.nextInt(24).toString().padLeft(2, '0')}:${random.nextInt(60).toString().padLeft(2, '0')}',
+          fare: fare,
+          fromStation: _selectedFromStation!,
+          toStation: _selectedToStation!,
+          duration: '${random.nextInt(2)}h ${random.nextInt(60)}m'
       ));
     }
     return tickets;
@@ -212,7 +236,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
 
   Widget _buildTicketCard(Ticket ticket) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -229,58 +253,93 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Train Ticket',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Image.asset(
+                'asset/tic.png', // Placeholder for the logo
+                width: 50,
+                height: 50,
+              ),
+              Text(
+                'BDT ${ticket.fare}',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 10),
-          _buildTicketDetail('Train Number', ticket.trainNumber),
-          _buildTicketDetail('From Station', ticket.fromStation),
-          _buildTicketDetail('To Station', ticket.toStation),
-          _buildTicketDetail('Timing', ticket.timing),
-          _buildTicketDetail('Fare', '${ticket.fare} TK'),
-          SizedBox(height: 10),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                // Implement your booking logic here
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Booking feature will be implemented soon!'),
-                    duration: Duration(seconds: 3),
-                  ),
-                );
-              },
-              child: Text('Book Now'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                padding: EdgeInsets.symmetric(vertical: 10.0),
-                textStyle: TextStyle(fontSize: 14.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildStationInfo(ticket.fromStation),
+              Icon(Icons.arrow_forward),
+              _buildStationInfo(ticket.toStation),
+              Text(
+                'Train No\n${ticket.trainNumber}',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildIconText(Icons.calendar_today, '${_selectedDate!.day} ${_selectedDate!.month}, ${_selectedDate!.year}'),
+              _buildIconText(Icons.access_time, ticket.duration),
+              SizedBox(
+                width: 100,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Implement your booking logic here
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Booking feature will be implemented soon!'),
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
+                  },
+                  child: Text('Book Now'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.green,
+                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    textStyle: TextStyle(fontSize: 14.0),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTicketDetail(String label, String value) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(value),
-        ],
-      ),
+  Widget _buildStationInfo(String station) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          station,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        // Optional: You can add more station-related information here if needed
+      ],
+    );
+  }
+
+  Widget _buildIconText(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, size: 16),
+        SizedBox(width: 5),
+        Text(text),
+      ],
     );
   }
 }
@@ -291,6 +350,7 @@ class Ticket {
   final int fare;
   final String fromStation;
   final String toStation;
+  final String duration;
 
   Ticket({
     required this.trainNumber,
@@ -298,5 +358,6 @@ class Ticket {
     required this.fare,
     required this.fromStation,
     required this.toStation,
+    required this.duration,
   });
 }
