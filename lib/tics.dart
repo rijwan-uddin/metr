@@ -1,6 +1,8 @@
 
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:metr/ticketdetails.dart';
 import 'station_fare.dart'; // Import the StationFareDatabase class
 
 class TrainTicketSearch extends StatefulWidget {
@@ -286,7 +288,6 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
   List<Widget> _buildTicketsUI() {
     return _tickets.map((ticket) => _buildTicketCard(ticket)).toList();
   }
-
   Widget _buildTicketCard(Ticket ticket) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -368,12 +369,19 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                 width: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Implement your booking logic here
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content:
-                        Text('Booking feature will be implemented soon!'),
-                        duration: Duration(seconds: 3),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TicketDetails(
+                          fromStation: ticket.fromStation,
+                          toStation: ticket.toStation,
+                          trainNumber: ticket.trainNumber,
+                          fare: ticket.fare.toDouble(),
+                          date: _selectedDate!,
+                          onboardingTime: ticket.timing,
+                          arrivalTime: '', // You can add actual data here
+                          numberOfTickets: 1, // Default to 1, can be changed
+                        ),
                       ),
                     );
                   },
@@ -391,6 +399,104 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
       ),
     );
   }
+
+  // Widget _buildTicketCard(Ticket ticket) {
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  //     padding: EdgeInsets.all(15.0),
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(8.0),
+  //       border: Border.all(color: Colors.green, width: 2),
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.grey.withOpacity(0.3),
+  //           spreadRadius: 2,
+  //           blurRadius: 5,
+  //           offset: Offset(0, 2),
+  //         )
+  //       ],
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Image.asset(
+  //               'asset/tic.png', // Placeholder for the logo
+  //               width: 50,
+  //               height: 50,
+  //             ),
+  //             Text(
+  //               'BDT ${ticket.fare}',
+  //               style: TextStyle(
+  //                 fontSize: 18,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Colors.red,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         Divider(
+  //           color: Colors.green[100],
+  //           thickness: 0.8,
+  //         ),
+  //         SizedBox(height: 10),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             _buildStationInfo(ticket.fromStation),
+  //             Icon(Icons.arrow_forward),
+  //             _buildStationInfo(ticket.toStation),
+  //             RichText(
+  //               textAlign: TextAlign.right,
+  //               text: TextSpan(
+  //                 text: 'Train No\n',
+  //                 style: TextStyle(
+  //                   fontWeight: FontWeight.normal,
+  //                   color: Colors.black,
+  //                 ),
+  //                 children: <TextSpan>[
+  //                   TextSpan(
+  //                     text: ticket.trainNumber,
+  //                     style: TextStyle(
+  //                       fontWeight: FontWeight.bold,
+  //                       color: Colors.green,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 10),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             _buildIconText(Icons.calendar_today,
+  //                 '${_selectedDate!.day} ${_selectedDate!.month}, ${_selectedDate!.year}'),
+  //             _buildIconText(Icons.access_time, ticket.duration),
+  //             SizedBox(
+  //               width: 100,
+  //               child: ElevatedButton(
+  //                 onPressed: () {
+  //
+  //                 },
+  //                 child: Text('Book Now'),
+  //                 style: ElevatedButton.styleFrom(
+  //                   primary: Colors.green,
+  //                   padding: EdgeInsets.symmetric(vertical: 10.0),
+  //                   textStyle: TextStyle(fontSize: 14.0),
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildStationInfo(String station) {
     return Column(
