@@ -54,7 +54,7 @@ class _TicketDetailsState extends State<TicketDetails> {
               colors: [Colors.green, Colors.white],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              stops: [0.5, 0.5],
+              stops: [0.35, 0.35],
             ),
           ),
           child: Column(
@@ -305,9 +305,22 @@ class _TicketDetailsState extends State<TicketDetails> {
                 ),
               ),
               SizedBox(height: 20),
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  return Container(
+                    width: constraints.maxWidth * 0.9,
+                    child: Divider(
+                      color: Colors.green[200],
+                      thickness: 2.0,
+                    ),
+                  );
+                },
+              ),
+
             ],
           ),
         ),
+
       ),
     );
   }
