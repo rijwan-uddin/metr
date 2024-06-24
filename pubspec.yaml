@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   get:
   barcode_widget: ^2.0.0
+  pdf: ^3.6.1
+  printing: ^5.8.1
 
 
   # The following adds the Cupertino Icons font to your application.

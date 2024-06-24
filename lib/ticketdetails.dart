@@ -372,11 +372,20 @@ class _TicketDetailsState extends State<TicketDetails> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => confirmation(
-                               // Default to 1, can be changed
+                              builder: (context) => Confirmation(
+                                fromStation: widget.fromStation,
+                                toStation: widget.toStation,
+                                trainNumber: widget.trainNumber,
+                                fare: widget.fare,
+                                date: widget.date,
+                                onboardingTime: widget.onboardingTime,
+                                arrivalTime: widget.arrivalTime,
+                                numberOfTickets: _numberOfTickets,
+                                ticketSerial: '256154',
                               ),
                             ),
                           );
+
 
                         },
                         child: Text(
