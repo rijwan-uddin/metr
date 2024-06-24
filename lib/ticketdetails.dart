@@ -381,7 +381,7 @@ class _TicketDetailsState extends State<TicketDetails> {
                                 onboardingTime: widget.onboardingTime,
                                 arrivalTime: widget.arrivalTime,
                                 numberOfTickets: _numberOfTickets,
-                                ticketSerial: '256154',
+                               // totalFare: _totalFare,
                               ),
                             ),
                           );
