@@ -65,6 +65,7 @@ class _TicketDetailsState extends State<TicketDetails> {
             child: Column(
               children: [
                 SizedBox(height: 40),
+                Icon(Icons.arrow_back),
                 Text(
                   'Ticket Details',
                   style: TextStyle(
@@ -369,22 +370,7 @@ class _TicketDetailsState extends State<TicketDetails> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Confirmation(
-                                fromStation: widget.fromStation,
-                                toStation: widget.toStation,
-                                trainNumber: widget.trainNumber,
-                                fare: widget.fare,
-                                date: widget.date,
-                                onboardingTime: widget.onboardingTime,
-                                arrivalTime: widget.arrivalTime,
-                                numberOfTickets: _numberOfTickets,
-                               // totalFare: _totalFare,
-                              ),
-                            ),
-                          );
+
 
 
                         },
@@ -402,7 +388,22 @@ class _TicketDetailsState extends State<TicketDetails> {
                   child: Column(
                     children: [
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () { Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Confirmation(
+                              fromStation: widget.fromStation,
+                              toStation: widget.toStation,
+                              trainNumber: widget.trainNumber,
+                              fare: widget.fare,
+                              date: widget.date,
+                              onboardingTime: widget.onboardingTime,
+                              arrivalTime: widget.arrivalTime,
+                              numberOfTickets: _numberOfTickets,
+                              // totalFare: _totalFare,
+                            ),
+                          ),
+                        );
                           // Handle Make Payment
                         },
                         style: ElevatedButton.styleFrom(

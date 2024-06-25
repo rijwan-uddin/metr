@@ -66,6 +66,9 @@ class StationFareDatabase {
     StationFare(fromStation: 'Uttara South', toStation: 'Kamalapur', fare: 70),
 
     // Pallabi fares
+    StationFare(fromStation: 'Pallabi', toStation: 'Uttara North', fare: 20),
+    StationFare(fromStation: 'Pallabi', toStation: 'Uttara Center', fare: 20),
+    StationFare(fromStation: 'Pallabi', toStation: 'Uttara South', fare: 20),
     StationFare(fromStation: 'Pallabi', toStation: 'Mirpur 11', fare: 20),
     StationFare(fromStation: 'Pallabi', toStation: 'Mirpur 10', fare: 20),
     StationFare(fromStation: 'Pallabi', toStation: 'Kazipara', fare: 20),
@@ -81,6 +84,10 @@ class StationFareDatabase {
     StationFare(fromStation: 'Pallabi', toStation: 'Kamalapur', fare: 60),
 
     // Mirpur 11 fares
+    StationFare(fromStation: 'Mirpur 11', toStation: 'Uttara North', fare: 30),
+    StationFare(fromStation: 'Mirpur 11', toStation: 'Uttara Center', fare: 20),
+    StationFare(fromStation: 'Mirpur 11', toStation: 'Uttara South', fare: 20),
+    StationFare(fromStation: 'Mirpur 11', toStation: 'Pallabi', fare: 20),
     StationFare(fromStation: 'Mirpur 11', toStation: 'Mirpur 10', fare: 20),
     StationFare(fromStation: 'Mirpur 11', toStation: 'Kazipara', fare: 20),
     StationFare(fromStation: 'Mirpur 11', toStation: 'Shewrapara', fare: 20),
@@ -95,6 +102,11 @@ class StationFareDatabase {
     StationFare(fromStation: 'Mirpur 11', toStation: 'Kamalapur', fare: 60),
 
     // Mirpur 10 fares
+    StationFare(fromStation: 'Mirpur 10', toStation: 'Uttara North', fare: 40),
+    StationFare(fromStation: 'Mirpur 10', toStation: 'Uttara Center', fare: 30),
+    StationFare(fromStation: 'Mirpur 10', toStation: 'Uttara South', fare: 20),
+    StationFare(fromStation: 'Mirpur 10', toStation: 'Pallabi', fare: 20),
+    StationFare(fromStation: 'Mirpur 10', toStation: 'Mirpur 11', fare: 20),
     StationFare(fromStation: 'Mirpur 10', toStation: 'Kazipara', fare: 20),
     StationFare(fromStation: 'Mirpur 10', toStation: 'Shewrapara', fare: 20),
     StationFare(fromStation: 'Mirpur 10', toStation: 'Agargaon', fare: 20),
@@ -108,6 +120,12 @@ class StationFareDatabase {
     StationFare(fromStation: 'Mirpur 10', toStation: 'Kamalapur', fare: 60),
 
     // Kazipara fares
+    StationFare(fromStation: 'Kazipara', toStation: 'Uttara North', fare: 50),
+    StationFare(fromStation: 'Kazipara', toStation: 'Uttara Center', fare: 40),
+    StationFare(fromStation: 'Kazipara', toStation: 'Uttara South', fare: 30),
+    StationFare(fromStation: 'Kazipara', toStation: 'Pallabi', fare: 20),
+    StationFare(fromStation: 'Kazipara', toStation: 'Mirpur 11', fare: 20),
+    StationFare(fromStation: 'Kazipara', toStation: 'Mirpur 10', fare: 20),
     StationFare(fromStation: 'Kazipara', toStation: 'Shewrapara', fare: 20),
     StationFare(fromStation: 'Kazipara', toStation: 'Agargaon', fare: 20),
     StationFare(fromStation: 'Kazipara', toStation: 'Bijoy Sarani', fare: 20),
@@ -120,6 +138,13 @@ class StationFareDatabase {
     StationFare(fromStation: 'Kazipara', toStation: 'Kamalapur', fare: 60),
 
     // Shewrapara fares
+    StationFare(fromStation: 'Shewrapara', toStation: 'Uttara North', fare: 50),
+    StationFare(fromStation: 'Shewrapara', toStation: 'Uttara Center', fare: 40),
+    StationFare(fromStation: 'Shewrapara', toStation: 'Uttara South', fare: 30),
+    StationFare(fromStation: 'Shewrapara', toStation: 'Pallabi', fare: 20),
+    StationFare(fromStation: 'Shewrapara', toStation: 'Mirpur 11', fare: 20),
+    StationFare(fromStation: 'Shewrapara', toStation: 'Mirpur 10', fare: 20),
+    StationFare(fromStation: 'Shewrapara', toStation: 'Kazipara', fare: 20),
     StationFare(fromStation: 'Shewrapara', toStation: 'Agargaon', fare: 20),
     StationFare(fromStation: 'Shewrapara', toStation: 'Bijoy Sarani', fare: 20),
     StationFare(fromStation: 'Shewrapara', toStation: 'Farmgate', fare: 20),
@@ -131,6 +156,14 @@ class StationFareDatabase {
     StationFare(fromStation: 'Shewrapara', toStation: 'Kamalapur', fare: 50),
 
     // Agargaon fares
+    StationFare(fromStation: 'Agargaon', toStation: 'Uttara North', fare: 60),
+    StationFare(fromStation: 'Agargaon', toStation: 'Uttara Center', fare: 50),
+    StationFare(fromStation: 'Agargaon', toStation: 'Uttara South', fare: 40),
+    StationFare(fromStation: 'Agargaon', toStation: 'Pallabi', fare: 30),
+    StationFare(fromStation: 'Agargaon', toStation: 'Mirpur 11', fare: 30),
+    StationFare(fromStation: 'Agargaon', toStation: 'Mirpur 10', fare: 20),
+    StationFare(fromStation: 'Agargaon', toStation: 'Kazipara', fare: 20),
+    StationFare(fromStation: 'Agargaon', toStation: 'Shewrapara', fare: 20),
     StationFare(fromStation: 'Agargaon', toStation: 'Bijoy Sarani', fare: 20),
     StationFare(fromStation: 'Agargaon', toStation: 'Farmgate', fare: 20),
     StationFare(fromStation: 'Agargaon', toStation: 'Karwan Bazar', fare: 20),
@@ -141,6 +174,15 @@ class StationFareDatabase {
     StationFare(fromStation: 'Agargaon', toStation: 'Kamalapur', fare: 40),
 
     // Bijoy Sarani fares
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Uttara North', fare: 60),
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Uttara Center', fare: 50),
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Uttara South', fare: 40),
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Pallabi', fare: 30),
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Mirpur 11', fare: 30),
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Mirpur 10', fare: 30),
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Kazipara', fare: 20),
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Shewrapara', fare: 20),
+    StationFare(fromStation: 'Bijoy Sarani', toStation: 'Agargaon', fare: 20),
     StationFare(fromStation: 'Bijoy Sarani', toStation: 'Farmgate', fare: 20),
     StationFare(fromStation: 'Bijoy Sarani', toStation: 'Karwan Bazar', fare: 20),
     StationFare(fromStation: 'Bijoy Sarani', toStation: 'Shahbag', fare: 30),
@@ -150,6 +192,16 @@ class StationFareDatabase {
     StationFare(fromStation: 'Bijoy Sarani', toStation: 'Kamalapur', fare: 40),
 
     // Farmgate fares
+    StationFare(fromStation: 'Farmgate', toStation: 'Uttara North', fare: 60),
+    StationFare(fromStation: 'Farmgate', toStation: 'Uttara Center', fare: 50),
+    StationFare(fromStation: 'Farmgate', toStation: 'Uttara South', fare: 40),
+    StationFare(fromStation: 'Farmgate', toStation: 'Pallabi', fare: 30),
+    StationFare(fromStation: 'Farmgate', toStation: 'Mirpur 11', fare: 30),
+    StationFare(fromStation: 'Farmgate', toStation: 'Mirpur 10', fare: 30),
+    StationFare(fromStation: 'Farmgate', toStation: 'Kazipara', fare: 30),
+    StationFare(fromStation: 'Farmgate', toStation: 'Shewrapara', fare: 20),
+    StationFare(fromStation: 'Farmgate', toStation: 'Agargaon', fare: 20),
+    StationFare(fromStation: 'Farmgate', toStation: 'Bijoy Sarani', fare: 20),
     StationFare(fromStation: 'Farmgate', toStation: 'Karwan Bazar', fare: 20),
     StationFare(fromStation: 'Farmgate', toStation: 'Shahbag', fare: 20),
     StationFare(fromStation: 'Farmgate', toStation: 'Dhaka University', fare: 20),
@@ -158,6 +210,17 @@ class StationFareDatabase {
     StationFare(fromStation: 'Farmgate', toStation: 'Kamalapur', fare: 30),
 
     // Karwan Bazar fares
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Uttara North', fare: 70),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Uttara Center', fare: 60),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Uttara South', fare: 50),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Pallabi', fare: 40),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Mirpur 11', fare: 40),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Mirpur 10', fare: 40),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Kazipara', fare: 40),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Shewrapara', fare: 30),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Agargaon', fare: 20),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Bijoy Sarani', fare: 20),
+    StationFare(fromStation: 'Karwan Bazar', toStation: 'Farmgate', fare: 20),
     StationFare(fromStation: 'Karwan Bazar', toStation: 'Shahbag', fare: 20),
     StationFare(fromStation: 'Karwan Bazar', toStation: 'Dhaka University', fare: 20),
     StationFare(fromStation: 'Karwan Bazar', toStation: 'Bangladesh Secretariat', fare: 20),
@@ -165,22 +228,78 @@ class StationFareDatabase {
     StationFare(fromStation: 'Karwan Bazar', toStation: 'Kamalapur', fare: 30),
 
     // Shahbag fares
+    StationFare(fromStation: 'Shahbag', toStation: 'Uttara North', fare: 80),
+    StationFare(fromStation: 'Shahbag', toStation: 'Uttara Center', fare: 70),
+    StationFare(fromStation: 'Shahbag', toStation: 'Uttara South', fare: 60),
+    StationFare(fromStation: 'Shahbag', toStation: 'Pallabi', fare: 50),
+    StationFare(fromStation: 'Shahbag', toStation: 'Mirpur 11', fare: 50),
+    StationFare(fromStation: 'Shahbag', toStation: 'Mirpur 10', fare: 50),
+    StationFare(fromStation: 'Shahbag', toStation: 'Kazipara', fare: 50),
+    StationFare(fromStation: 'Shahbag', toStation: 'Shewrapara', fare: 40),
+    StationFare(fromStation: 'Shahbag', toStation: 'Agargaon', fare: 30),
+    StationFare(fromStation: 'Shahbag', toStation: 'Bijoy Sarani', fare: 30),
+    StationFare(fromStation: 'Shahbag', toStation: 'Farmgate', fare: 20),
+    StationFare(fromStation: 'Shahbag', toStation: 'Karwan Bazar', fare: 20),
     StationFare(fromStation: 'Shahbag', toStation: 'Dhaka University', fare: 10),
     StationFare(fromStation: 'Shahbag', toStation: 'Bangladesh Secretariat', fare: 10),
     StationFare(fromStation: 'Shahbag', toStation: 'Motijheel', fare: 20),
     StationFare(fromStation: 'Shahbag', toStation: 'Kamalapur', fare: 20),
 
     // Dhaka University fares
+    StationFare(fromStation: 'Dhaka University', toStation: 'Uttara North', fare: 80),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Uttara Center', fare: 70),
     StationFare(fromStation: 'Dhaka University', toStation: 'Bangladesh Secretariat', fare: 10),
     StationFare(fromStation: 'Dhaka University', toStation: 'Motijheel', fare: 10),
     StationFare(fromStation: 'Dhaka University', toStation: 'Kamalapur', fare: 20),
 
+    StationFare(fromStation: 'Dhaka University', toStation: 'Uttara South', fare: 60),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Pallabi', fare: 50),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Mirpur 11', fare: 50),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Mirpur 10', fare: 50),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Kazipara', fare: 50),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Shewrapara', fare: 40),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Agargaon', fare: 30),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Bijoy Sarani', fare: 30),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Farmgate', fare: 20),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Karwan Bazar', fare: 20),
+    StationFare(fromStation: 'Dhaka University', toStation: 'Shahbag', fare: 20),
+
     // Bangladesh Secretariat fares
     StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Motijheel', fare: 10),
     StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Kamalapur', fare: 10),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Uttara South', fare: 20),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Pallabi', fare: 20),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Mirpur 11', fare: 30),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Mirpur 10', fare: 40),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Kazipara', fare: 50),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Shewrapara', fare: 50),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Agargaon', fare: 60),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Bijoy Sarani', fare: 60),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Farmgate', fare: 60),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Karwan Bazar', fare: 70),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Shahbag', fare: 80),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Dhaka University', fare: 80),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Bangladesh Secretariat', fare: 80),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Motijheel', fare: 20),
+    StationFare(fromStation: 'Bangladesh Secretariat', toStation: 'Kamalapur', fare: 90),
+
 
     // Motijheel fares
-    StationFare(fromStation: 'Motijheel', toStation: 'Kamalapur', fare: 10),
+    StationFare(fromStation: 'Motijheel', toStation: 'Uttara North', fare: 100),
+    StationFare(fromStation: 'Motijheel', toStation: 'Uttara Center', fare: 90),
+    StationFare(fromStation: 'Motijheel', toStation: 'Uttara South', fare: 80),
+    StationFare(fromStation: 'Motijheel', toStation: 'Pallabi', fare: 70),
+    StationFare(fromStation: 'Motijheel', toStation: 'Mirpur 11', fare: 70),
+    StationFare(fromStation: 'Motijheel', toStation: 'Mirpur 10', fare: 70),
+    StationFare(fromStation: 'Motijheel', toStation: 'Kazipara', fare: 70),
+    StationFare(fromStation: 'Motijheel', toStation: 'Shewrapara', fare: 60),
+    StationFare(fromStation: 'Motijheel', toStation: 'Agargaon', fare: 50),
+    StationFare(fromStation: 'Motijheel', toStation: 'Bijoy Sarani', fare: 50),
+    StationFare(fromStation: 'Motijheel', toStation: 'Farmgate', fare: 40),
+    StationFare(fromStation: 'Motijheel', toStation: 'Karwan Bazar', fare: 40),
+    StationFare(fromStation: 'Motijheel', toStation: 'Shahbag', fare: 30),
+    StationFare(fromStation: 'Motijheel', toStation: 'Dhaka University', fare: 30),
+    StationFare(fromStation: 'Motijheel', toStation: 'Bangladesh Secretariat', fare: 20),
   ];
 
   int getFare(String fromStation, String toStation) {

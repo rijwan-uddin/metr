@@ -1,7 +1,5 @@
-
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:metr/ticketdetails.dart';
 import 'station_fare.dart'; // Import the StationFareDatabase class
 
@@ -74,15 +72,17 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    'Search Result',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20),
+
+                 Text(
+                   'Search Result',
+                   textAlign: TextAlign.center,
+                   style: TextStyle(
+                     fontSize: 20,
+                     fontWeight: FontWeight.bold,
+                   ),
+                 ),
+
+                  SizedBox(height: 18),
                   _buildDropdown('From Station', _selectedFromStation, (value) {
                     setState(() {
                       _selectedFromStation = value;
@@ -112,7 +112,9 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                 ],
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             LayoutBuilder(
               builder: (context, constraints) {
                 return Container(
@@ -139,31 +141,37 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                             _isOneWay = true;
                           });
                         },
-                        child: Text('One Way', style: TextStyle(fontSize: 12.0)),
+                        child:
+                            Text('One Way', style: TextStyle(fontSize: 12.0)),
                         style: ElevatedButton.styleFrom(
                           primary: _isOneWay ? Colors.green : Colors.grey,
                           onPrimary: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 8.0),
                         ),
                       ),
-
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
                             _isOneWay = false;
                           });
                         },
-                        child: Text('Two Way', style: TextStyle(fontSize: 12.0)),
+                        child:
+                            Text('Two Way', style: TextStyle(fontSize: 12.0)),
                         style: ElevatedButton.styleFrom(
                           primary: !_isOneWay ? Colors.green : Colors.grey,
                           onPrimary: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 8.0),
                         ),
                       ),
                     ],
                   ),
                   IconButton(
-                    icon: Icon(Icons.filter_alt, color: Colors.green,),
+                    icon: Icon(
+                      Icons.filter_alt,
+                      color: Colors.green,
+                    ),
                     onPressed: () {
                       // Implement filter logic here
                       showTimeFilterDialog();
@@ -189,9 +197,9 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
       icon: Icon(Icons.keyboard_arrow_down),
       items: _stations
           .map((station) => DropdownMenuItem(
-        value: station,
-        child: Text(station),
-      ))
+                value: station,
+                child: Text(station),
+              ))
           .toList(),
       onChanged: onChanged,
       decoration: InputDecoration(
@@ -276,7 +284,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
       tickets.add(Ticket(
           trainNumber: 'DMR-${random.nextInt(100)}',
           timing:
-          '${random.nextInt(24).toString().padLeft(2, '0')}:${random.nextInt(60).toString().padLeft(2, '0')}',
+              '${random.nextInt(24).toString().padLeft(2, '0')}:${random.nextInt(60).toString().padLeft(2, '0')}',
           fare: fare,
           fromStation: _selectedFromStation!,
           toStation: _selectedToStation!,
@@ -288,6 +296,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
   List<Widget> _buildTicketsUI() {
     return _tickets.map((ticket) => _buildTicketCard(ticket)).toList();
   }
+
   Widget _buildTicketCard(Ticket ticket) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -379,7 +388,8 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                           fare: ticket.fare.toDouble(),
                           date: _selectedDate!,
                           onboardingTime: ticket.timing,
-                          arrivalTime: '', // You can add actual data here
+                          arrivalTime: '',
+                          // You can add actual data here
                           numberOfTickets: 1, // Default to 1, can be changed
                         ),
                       ),
@@ -399,104 +409,6 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
       ),
     );
   }
-
-  // Widget _buildTicketCard(Ticket ticket) {
-  //   return Container(
-  //     margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  //     padding: EdgeInsets.all(15.0),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white,
-  //       borderRadius: BorderRadius.circular(8.0),
-  //       border: Border.all(color: Colors.green, width: 2),
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: Colors.grey.withOpacity(0.3),
-  //           spreadRadius: 2,
-  //           blurRadius: 5,
-  //           offset: Offset(0, 2),
-  //         )
-  //       ],
-  //     ),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Image.asset(
-  //               'asset/tic.png', // Placeholder for the logo
-  //               width: 50,
-  //               height: 50,
-  //             ),
-  //             Text(
-  //               'BDT ${ticket.fare}',
-  //               style: TextStyle(
-  //                 fontSize: 18,
-  //                 fontWeight: FontWeight.bold,
-  //                 color: Colors.red,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         Divider(
-  //           color: Colors.green[100],
-  //           thickness: 0.8,
-  //         ),
-  //         SizedBox(height: 10),
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             _buildStationInfo(ticket.fromStation),
-  //             Icon(Icons.arrow_forward),
-  //             _buildStationInfo(ticket.toStation),
-  //             RichText(
-  //               textAlign: TextAlign.right,
-  //               text: TextSpan(
-  //                 text: 'Train No\n',
-  //                 style: TextStyle(
-  //                   fontWeight: FontWeight.normal,
-  //                   color: Colors.black,
-  //                 ),
-  //                 children: <TextSpan>[
-  //                   TextSpan(
-  //                     text: ticket.trainNumber,
-  //                     style: TextStyle(
-  //                       fontWeight: FontWeight.bold,
-  //                       color: Colors.green,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 10),
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             _buildIconText(Icons.calendar_today,
-  //                 '${_selectedDate!.day} ${_selectedDate!.month}, ${_selectedDate!.year}'),
-  //             _buildIconText(Icons.access_time, ticket.duration),
-  //             SizedBox(
-  //               width: 100,
-  //               child: ElevatedButton(
-  //                 onPressed: () {
-  //
-  //                 },
-  //                 child: Text('Book Now'),
-  //                 style: ElevatedButton.styleFrom(
-  //                   primary: Colors.green,
-  //                   padding: EdgeInsets.symmetric(vertical: 10.0),
-  //                   textStyle: TextStyle(fontSize: 14.0),
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget _buildStationInfo(String station) {
     return Column(
@@ -545,7 +457,8 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                 onTap: () {
                   setState(() {
                     _selectedFilter = 'Train Number';
-                    _tickets.sort((a, b) => a.trainNumber.compareTo(b.trainNumber));
+                    _tickets
+                        .sort((a, b) => a.trainNumber.compareTo(b.trainNumber));
                     Navigator.of(context).pop();
                   });
                 },
