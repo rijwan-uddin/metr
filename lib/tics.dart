@@ -561,7 +561,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
             ),
             Container(
               width: double.infinity,
-              height: 300,
+              height: 350,
               padding: EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -605,7 +605,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
                       _selectedFromStation), // Pass the selected From Station
                   SizedBox(height: 10),
                   _buildDateField(),
-                  SizedBox(height: 20),
+                  SizedBox(height: 18),
                   ElevatedButton(
                     onPressed: () {
                       _calculateFareAndGenerateTickets();
