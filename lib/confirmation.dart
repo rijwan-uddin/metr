@@ -916,7 +916,11 @@ class _ConfirmationState extends State<Confirmation> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset('asset/done.jpg', height: 60),
+                    Icon(
+                      Icons.verified,
+                      color: Colors.green,
+                      size: 60,
+                    ),
                     const SizedBox(height: 10),
                     const Text(
                       'Download Successful!',

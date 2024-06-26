@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 import 'confirmation.dart';
 
 class TicketDetails extends StatefulWidget {
@@ -65,7 +63,7 @@ class _TicketDetailsState extends State<TicketDetails> {
             child: Column(
               children: [
                 SizedBox(height: 40),
-                Icon(Icons.arrow_back),
+
                 Text(
                   'Ticket Details',
                   style: TextStyle(
