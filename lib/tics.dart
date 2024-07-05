@@ -42,7 +42,7 @@ class _TrainTicketSearchState extends State<TrainTicketSearch> {
     borderSide: BorderSide(color: Colors.grey, width: 1.0),
   );
 
-  bool _isOneWay = true; 
+  bool _isOneWay = true;
   String? _selectedFilter; // Selected filter type
 
   @override
