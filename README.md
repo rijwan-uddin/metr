@@ -1,4 +1,4 @@
 # metr
 
 A new Flutter project.
-https://www.figma.com/design/VvI4KBE1sez5mMB2ZhBOcR/DS-Lab-App?node-id=0-1&t=3y0TLrZodv3SIOiD-1
+https://www.figma.com/design/DsDmpGcN1eyBbte54vBaTw/Metro-Rail-ticket-System?node-id=439-3&node-type=frame&t=ojBFJC7ZMs0cvwzD-0
